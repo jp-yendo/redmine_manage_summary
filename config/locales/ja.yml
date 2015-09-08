@@ -1,0 +1,8 @@
+ja:
+  project_module_manage_summary: "管理サマリ"
+  permission_view_manage_summary: "管理サマリ表示"
+
+  menu_label_manage_summary: "サマリ"
+
+  managesummary_show_filters: "条件"
+  managesummary_target_date: "対象日"

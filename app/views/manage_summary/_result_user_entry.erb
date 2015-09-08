@@ -1,0 +1,39 @@
+<% if !@usercollection.nil? %>
+<div class="wrapper">
+  <table class="list">
+    <thead>
+      <th class="name-field"> </th>
+      <% beforemonth = '' %>
+      <% @daycollection.each do |dayinfo| %>
+      <th>
+        <% if beforemonth == dayinfo.date.strftime('%m') %>
+          <% disp = dayinfo.date.strftime('%d') %>
+        <% else %>
+          <% disp = dayinfo.date.strftime('%m/%d') %>
+        <% end %>
+        <%=disp%><br />
+        <small><%=dayinfo.dayname%></small>
+      </th>
+      <% beforemonth = dayinfo.date.strftime('%m') %>
+      <% end %>
+    </thead>
+    <tbody>
+      <% @usercollection.each do |userinfo| %>
+        <tr>
+          <td class="name-field cellnormal"><%=userinfo.info.name%></td>
+          <% userinfo.timeentries.each do |timeentry| %>
+            <% classstring = 'cellnormal number-field' %>
+            <% if timeentry.dayinfo.date == @targetdate %>
+              <% classstring += ' targetdate' %>
+            <% end %>
+            <% if timeentry.dayinfo.isHoliday %>
+              <% classstring += ' holiday' %>
+            <% end %>
+            <td class="<%=classstring%>"><%=timeentry.hour%></td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<% end %>

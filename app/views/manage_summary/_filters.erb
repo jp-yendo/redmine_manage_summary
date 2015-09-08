@@ -1,0 +1,11 @@
+<%= form_tag({}, {:method => :get, :id => 'filter_form', :class => 'filters'}) do %>
+  <fieldset>
+    <legend><%= l(:managesummary_show_filters) %></legend>
+    <div>
+      <%= label_tag :target_date, l(:managesummary_target_date) %>
+      <%= text_field_tag :target_date, @targetdate, :name => 'target_date', :size => 10 %>
+      <%= calendar_for('target_date') %>
+    </div>
+    <%= link_to_function l(:button_apply), 'jQuery("#filter_form").submit()', :class => 'apply icon icon-checked' %>
+  </fieldset>
+<% end %>

@@ -1,0 +1,44 @@
+.controller-manage_summary .filters > div,
+.controller-manage_summary .filters .apply {
+    margin-top: 8px;
+}
+
+.controller-manage_summary .filters label:first-child {
+    display: inline-block;
+    width: 150px;
+}
+
+.controller-manage_summary .filters .apply {
+    display: inline-block;
+}
+
+.controller-manage_summary .wrapper {
+    margin-top: 30px;
+}
+
+.controller-manage_summary .holiday {
+    background-color: #ffbfb8;
+}
+
+.controller-manage_summary .targetdate {
+    border-left: solid red 3px;
+    border-right: solid red 3px;
+}
+
+.controller-manage_summary .cellnormal {
+    border-top: solid lightgray 1px;
+    border-bottom: solid lightgray 1px;
+}
+
+.controller-manage_summary .number-field {
+    text-align: right;
+    padding-left: 10px;
+    padding-right: 2px;
+}
+
+.controller-manage_summary .name-field {
+    min-width: 80px;
+    text-align: left;
+    padding-left: 2px;
+    padding-right: 2px;
+}

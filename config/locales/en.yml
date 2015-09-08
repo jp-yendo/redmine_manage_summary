@@ -1,0 +1,8 @@
+en:
+  project_module_manage_summary: "Manage Summary"
+  permission_view_manage_summary: "View manage summary"
+
+  menu_label_manage_summary: "Summary"
+
+  managesummary_show_filters: "Filters"
+  managesummary_target_date: "Target date"
