@@ -1,6 +1,7 @@
 en:
   project_module_manage_summary: "Manage Summary"
-  permission_view_manage_summary: "View manage summary"
+  permission_view_manage_summary: "View manage summary(all)"
+  permission_view_manage_project_summary: "View manage summary(project)"
 
   menu_label_manage_summary: "Summary"
 

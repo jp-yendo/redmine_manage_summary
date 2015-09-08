@@ -9,7 +9,8 @@ Redmine::Plugin.register :redmine_manage_summary do
   author_url 'https://github.com/jp-yendo'
 
   project_module :manage_summary do
-    permission :view_manage_summary, {:manage_summary => [:show]}
+    permission :view_manage_summary, {:manage_summary => [:index]}
+    permission :view_manage_project_summary, {:manage_summary => [:show]}
   end
 
   menu :top_menu, :manage_summary,

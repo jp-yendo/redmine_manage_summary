@@ -1,6 +1,7 @@
 ja:
   project_module_manage_summary: "管理サマリ"
-  permission_view_manage_summary: "管理サマリ表示"
+  permission_view_manage_summary: "管理サマリ表示（全体）"
+  permission_view_manage_project_summary: "管理サマリ表示（プロジェクト）"
 
   menu_label_manage_summary: "サマリ"
 
