@@ -47,9 +47,6 @@ private
       datecalc = Object.new
       datecalc.extend Redmine::Utils::DateCalculation
       dayinfo.isHoliday = datecalc.non_working_week_days.include?(convert_wday[targetdate.wday])
-      datecalc.non_working_week_days.each do |test|
-        Rails.logger.info(test.to_s)
-      end
       #日本の祝日と論理和
       dayinfo.isHoliday = dayinfo.isHoliday | targetdate.holiday?(:jp) 
       @daycollection[targetindex] = dayinfo
