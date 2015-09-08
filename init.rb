@@ -5,8 +5,8 @@ Redmine::Plugin.register :redmine_manage_summary do
   author 'Yuichiro Endo'
   description 'Redmine Manage Summary plugin'
   version '0.0.1'
-  url 'http://example.com/path/to/plugin'
-  author_url 'http://example.com/about'
+  url 'https://github.com/jp-yendo/redmine_manage_summary'
+  author_url 'https://github.com/jp-yendo'
 
   project_module :manage_summary do
     permission :view_manage_summary, {:manage_summary => [:show]}
