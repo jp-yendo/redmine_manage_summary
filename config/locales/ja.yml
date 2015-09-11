@@ -10,6 +10,9 @@ ja:
   managesummary_estimated_hours: "予定時間"
   managesummary_entry_hours: "実績時間"
   
+  managesummary_user_unallocated: "未割当"
+  managesummary_date_undecided: "日未定"
+
   managesummary_settings_hours: "判定時間設定"
   managesummary_settings_threshold_lowtime: "最小労働時間"
   managesummary_settings_threshold_normalload: "標準労働時間"

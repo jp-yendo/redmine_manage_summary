@@ -21,19 +21,21 @@
 }
 
 .controller-time_manage_summary .hardtime {
-    background-color: #feafa5;
+    color: red;
+    font-weight: bold;
 }
 
 .controller-time_manage_summary .overtime {
-    background-color: #fcfe8c;
+    color: darkorange;
+    font-weight: bold;
 }
 
 .controller-time_manage_summary .lowtime {
-    background-color: #cccccc;
+    color: #555555;
 }
 
 .controller-time_manage_summary .notime {
-    background-color: #cccccc;
+    color: #999999;
 }
 
 .controller-time_manage_summary .targetdate {

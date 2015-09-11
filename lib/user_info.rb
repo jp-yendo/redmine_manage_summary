@@ -1,35 +1,35 @@
 class UserInfo
-  attr_accessor :info
-  attr_accessor :time_entries
+  attr_accessor :id
+  attr_accessor :name
   attr_accessor :time_assignments
+  attr_accessor :time_entries
+  attr_accessor :date_undecided_hour
+  
+  def self.getProjectUserIds(projectId)
+    return UserInfo.getUserIds(projectId)
+  end
+ 
+  def self.getAllUserIds()
+    return UserInfo.getUserIds()
+  end
 
-   def self.getProjectUserIds(project, userids = nil)
+private
+  def self.getUserIds(projectId = nil, userids = nil)
     if userids.nil?
       result = []
     else
       result = userids
     end
 
-    countindex = 0
-    project.members.each do |member|
-      if result.find { |userid| userid == member.user_id }.nil?
-        result[countindex] = member.user_id
-        countindex+=1
-      end
+    if !projectId.nil?
+      projectIds = ProjectInfo.getProjectIds(projectId)
+      projects = Project.where(:id => projectIds)
+    else
+      projects = Project.all
     end
 
-    subprojects = Project.where(:parent_id => project.id)
-    subprojects.each do |project|
-      result = UserInfo.getProjectUserIds(project, result)
-    end
-
-    return result
-  end
- 
-  def self.getAllUserIds()
-    result = []
     countindex = 0
-    Project.all.each do |project|
+    projects.each do |project|
       project.members.each do |member|
         if result.find { |userid| userid == member.user_id }.nil?
           result[countindex] = member.user_id
@@ -37,6 +37,7 @@ class UserInfo
         end
       end
     end
+
     return result
   end
 end

@@ -9,7 +9,10 @@ en:
   managesummary_target_date: "Target date"
   managesummary_estimated_hours: "Estimated hours"
   managesummary_entry_hours: "Entry hours"
-  
+
+  managesummary_user_unallocated: "unallocated"
+  managesummary_date_undecided: "????"
+
   managesummary_settings_hours: "Threshold time Settings"
   managesummary_settings_threshold_lowtime: "Threshold low load"
   managesummary_settings_threshold_normalload: "Threshold normal load"

@@ -3,6 +3,7 @@
   <table class="list">
     <thead>
       <th class="name-field"> </th>
+      <th><%=l(:managesummary_date_undecided)%></th>
       <% beforemonth = '' %>
       <% @daycollection.each do |dayinfo| %>
       <th>
@@ -19,17 +20,37 @@
     </thead>
     <tbody>
       <% @usercollection.each do |userinfo| %>
+        <% first = true %>
         <tr>
-          <td class="name-field cellnormal"><%=userinfo.info.name%></td>
-          <% userinfo.time_entries.each do |timeentry| %>
-            <% classstring = 'cellnormal number-field' %>
-            <% if timeentry.dayinfo.date == @targetdate %>
-              <% classstring += ' targetdate' %>
+          <% if !userinfo.time_assignments.nil? && !userinfo.time_entries.nil? %>
+            <% timelist = [userinfo.time_assignments, userinfo.time_entries] %>
+          <% elsif !userinfo.time_assignments.nil? %>
+            <% timelist = [userinfo.time_assignments] %>
+          <% elsif !userinfo.time_entries.nil? %>
+            <% timelist = [userinfo.time_entries] %>
+          <% end %>
+
+          <% timelist.each do |timeline| %>
+            <% if first == true %>
+              <% first = false %>
+              <td class="name-field cellnormal" rowspan="<%=timelist.count%>"><%=userinfo.name%></td>
+              <td class="cellnormal number-field" rowspan="<%=timelist.count%>"><%=userinfo.date_undecided_hour%></td>
+            <% else %>
+              </tr><tr>
             <% end %>
-            <% if timeentry.dayinfo.isHoliday %>
-              <% classstring += ' holiday' %>
+
+            <% timeline.each do |timeinfo| %>
+              <% classstring = 'cellnormal number-field' %>
+              <% if timeinfo.dayinfo.date == @targetdate %>
+                <% classstring += ' targetdate' %>
+              <% end %>
+              <% if timeinfo.dayinfo.isHoliday %>
+                <% classstring += ' holiday' %>
+              <% end %>
+              <% classstring += " " + timeinfo.getTimeCssStyleName %>
+                  
+              <td class="<%=classstring%>"><%=timeinfo.hour%></td>
             <% end %>
-            <td class="<%=classstring%>"><%=timeentry.hour%></td>
           <% end %>
         </tr>
       <% end %>
