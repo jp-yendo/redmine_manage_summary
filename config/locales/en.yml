@@ -3,7 +3,15 @@ en:
   permission_view_manage_summary: "View manage summary(all)"
   permission_view_manage_project_summary: "View manage summary(project)"
 
-  menu_label_manage_summary: "Summary"
+  menu_label_time_manage_summary: "Time Summary"
 
   managesummary_show_filters: "Filters"
   managesummary_target_date: "Target date"
+  managesummary_estimated_hours: "Estimated hours"
+  managesummary_entry_hours: "Entry hours"
+  
+  managesummary_settings_hours: "Threshold time Settings"
+  managesummary_settings_threshold_lowtime: "Threshold low load"
+  managesummary_settings_threshold_normalload: "Threshold normal load"
+  managesummary_settings_threshold_overtime: "Threshold over load"
+  managesummary_settings_threshold_hardtime: "Threshold hard load"

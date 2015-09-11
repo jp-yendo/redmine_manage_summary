@@ -3,7 +3,15 @@ ja:
   permission_view_manage_summary: "管理サマリ表示（全体）"
   permission_view_manage_project_summary: "管理サマリ表示（プロジェクト）"
 
-  menu_label_manage_summary: "サマリ"
+  menu_label_time_manage_summary: "時間サマリ"
 
   managesummary_show_filters: "条件"
   managesummary_target_date: "対象日"
+  managesummary_estimated_hours: "予定時間"
+  managesummary_entry_hours: "実績時間"
+  
+  managesummary_settings_hours: "判定時間設定"
+  managesummary_settings_threshold_lowtime: "最小労働時間"
+  managesummary_settings_threshold_normalload: "標準労働時間"
+  managesummary_settings_threshold_overtime: "超過労働時間"
+  managesummary_settings_threshold_hardtime: "過酷労働時間"

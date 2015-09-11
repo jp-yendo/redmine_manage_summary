@@ -1,0 +1,29 @@
+<h2><%=  l(:managesummary_settings_hours) %></h2>
+<p>
+  <label><%= l(:managesummary_settings_threshold_lowtime) %></label>
+  <input type="text"
+         name="settings[threshold_lowtime]"
+         value="<%= settings['threshold_lowtime'] %>"
+  >
+</p>
+<p>
+  <label><%= l(:managesummary_settings_threshold_normalload) %></label>
+  <input type="text"
+         name="settings[threshold_normalload]"
+         value="<%= settings['threshold_normalload'] %>"
+  >
+</p>
+<p>
+  <label><%= l(:managesummary_settings_threshold_overtime) %></label>
+  <input type="text"
+         name="settings[threshold_overtime]"
+         value="<%= settings['threshold_overtime'] %>"
+  >
+</p>
+<p>
+  <label><%= l(:managesummary_settings_threshold_hardtime) %></label>
+  <input type="text"
+         name="settings[threshold_hardtime]"
+         value="<%= settings['threshold_hardtime'] %>"
+  >
+</p>

@@ -1,42 +1,58 @@
-.controller-manage_summary .filters > div,
+.controller-time_manage_summary .filters > div,
 .controller-manage_summary .filters .apply {
     margin-top: 8px;
 }
 
-.controller-manage_summary .filters label:first-child {
-    display: inline-block;
-    width: 150px;
-}
-
-.controller-manage_summary .filters .apply {
+.controller-time_manage_summary .filters label:first-child {
     display: inline-block;
 }
 
-.controller-manage_summary .wrapper {
-    margin-top: 30px;
+.controller-time_manage_summary .filters .apply {
+    display: inline-block;
 }
 
-.controller-manage_summary .holiday {
+.controller-time_manage_summary .wrapper {
+    margin-top: 20px;
+    overflow-x: auto;
+}
+
+.controller-time_manage_summary .holiday {
     background-color: #ffbfb8;
 }
 
-.controller-manage_summary .targetdate {
+.controller-time_manage_summary .hardtime {
+    background-color: #feafa5;
+}
+
+.controller-time_manage_summary .overtime {
+    background-color: #fcfe8c;
+}
+
+.controller-time_manage_summary .lowtime {
+    background-color: #cccccc;
+}
+
+.controller-time_manage_summary .notime {
+    background-color: #cccccc;
+}
+
+.controller-time_manage_summary .targetdate {
     border-left: solid red 3px;
     border-right: solid red 3px;
 }
 
-.controller-manage_summary .cellnormal {
+.controller-time_manage_summary .cellnormal {
     border-top: solid lightgray 1px;
     border-bottom: solid lightgray 1px;
 }
 
-.controller-manage_summary .number-field {
+.controller-time_manage_summary .number-field {
     text-align: right;
     padding-left: 10px;
     padding-right: 2px;
 }
 
-.controller-manage_summary .name-field {
+.controller-time_manage_summary .name-field {
     min-width: 80px;
     text-align: left;
     padding-left: 2px;

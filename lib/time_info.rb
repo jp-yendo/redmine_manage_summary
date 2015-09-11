@@ -1,4 +1,4 @@
-class TimeEntryInfo
+class TimeInfo
   def initialize
 
   end

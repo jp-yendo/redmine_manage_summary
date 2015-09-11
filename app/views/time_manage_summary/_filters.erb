@@ -4,7 +4,12 @@
     <div>
       <%= label_tag :target_date, l(:managesummary_target_date) %>
       <%= text_field_tag :target_date, @targetdate, :name => 'target_date', :size => 10 %>
-      <%= calendar_for('target_date') %>
+      <%= calendar_for('target_date') %><br />
+      <%= check_box_tag :show_estimated_hours, true, @show_estimated_hours %>
+      <%= label_tag :show_estimated_hours, l(:managesummary_estimated_hours)  %>
+      <%= check_box_tag :show_entry_hours, true, @show_entry_hours %>
+      <%= label_tag :show_entry_hours, l(:managesummary_entry_hours)  %><br />
+      <%= @filters_message.html_safe %>
     </div>
     <%= link_to_function l(:button_apply), 'jQuery("#filter_form").submit()', :class => 'apply icon icon-checked' %>
   </fieldset>

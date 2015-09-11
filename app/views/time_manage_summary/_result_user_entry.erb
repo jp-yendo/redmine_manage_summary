@@ -21,7 +21,7 @@
       <% @usercollection.each do |userinfo| %>
         <tr>
           <td class="name-field cellnormal"><%=userinfo.info.name%></td>
-          <% userinfo.timeentries.each do |timeentry| %>
+          <% userinfo.time_entries.each do |timeentry| %>
             <% classstring = 'cellnormal number-field' %>
             <% if timeentry.dayinfo.date == @targetdate %>
               <% classstring += ' targetdate' %>
