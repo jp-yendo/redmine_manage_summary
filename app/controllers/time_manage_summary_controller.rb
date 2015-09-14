@@ -1,6 +1,8 @@
 class TimeManageSummaryController < ApplicationController
   unloadable
 
+  DEFINE_DIGIT_OF_NUMBER = 2
+  
   def index
     @filters_message = ""
     initTimeManage
@@ -103,7 +105,7 @@ private
           else
             timeinfo.hour = TimeEntry.where(:user_id => user.id, :spent_on => dayinfo.date, :project_id => targetProjects).sum(:hours).to_f
           end
-          timeinfo.hour = timeinfo.hour.round(3)
+          timeinfo.hour = timeinfo.hour.round(DEFINE_DIGIT_OF_NUMBER)
           userinfo.time_entries[targetindex] = timeinfo
           targetindex += 1
         end
@@ -150,11 +152,6 @@ private
       calcIssue = Issue.where(:assigned_to_id => userinfo.id, :project_id => targetProjects).where(issue_where)
     end
 
-Rails.logger.info("-------------------------")
-Rails.logger.info("where: " + issue_where)
-Rails.logger.info("count: " + calcIssue.count.to_s)
-Rails.logger.info("-------------------------")
-    
     #Array reserve
     targetindex = 0
     @daycollection.each do |dayinfo|
@@ -165,40 +162,58 @@ Rails.logger.info("-------------------------")
       targetindex += 1
     end
 
+    #add issue hour
     calcIssue.each do |issue|
+      isHolidayWork = false
       day_hour = nil
       if !issue.start_date.nil? && !issue.due_date.nil?
         workdays = DayInfo.getWorkdays(issue.start_date, issue.due_date)
         if workdays < 1
           workdays = (issue.due_date - issue.start_date) + 1
+          isHolidayWork = true
         end
         day_hour = issue.estimated_hours / workdays
-        day_hour = day_hour.round(3)
+        day_hour = day_hour.round(DEFINE_DIGIT_OF_NUMBER)
         start_date = issue.start_date
         end_date = issue.due_date
       elsif !issue.start_date.nil?
         day_hour = default_hour
-        day_hour = day_hour.round(3)
+        day_hour = day_hour.round(DEFINE_DIGIT_OF_NUMBER)
         start_date = issue.start_date
         end_date = DayInfo.calcProvisionalEndDate(start_date, issue.estimated_hours, day_hour)
       elsif !issue.due_date.nil?
         day_hour = default_hour
-        day_hour = day_hour.round(3)
+        day_hour = day_hour.round(DEFINE_DIGIT_OF_NUMBER)
         end_date = issue.due_date
         start_date = DayInfo.calcProvisionalStartDate(end_date, issue.estimated_hours, day_hour)
       end
       
       if !day_hour.nil?
-Rails.logger.info("-------------------------")
-Rails.logger.info("start_date: " + start_date.to_s)
-Rails.logger.info("end_date: " + end_date.to_s)
-Rails.logger.info("day_hour: " + day_hour.to_s)
-Rails.logger.info("-------------------------")
-        
+        total_hour = issue.estimated_hours
+        dayindex = 0
+        while total_hour > 0 && (start_date + dayindex) <= @lastdate && (start_date + dayindex) >= @firstdate
+          targetdate = start_date + dayindex
+          timeinfo = userinfo.time_assignments.select{|timeinfo| timeinfo.dayinfo.date == targetdate}[0]
+          if isHolidayWork == true || timeinfo.dayinfo.isHoliday == false
+            if total_hour >= day_hour
+              timeinfo.hour += day_hour
+              total_hour -= day_hour
+            else
+              timeinfo.hour += total_hour
+              total_hour = 0
+            end
+          end
+
+          dayindex += 1
+        end
       end
-      #timeinfo.hour = timeinfo.hour.round(3)
     end
 
+    #round
+    userinfo.time_assignments.each do |timeinfo|
+      timeinfo.hour = timeinfo.hour.round(DEFINE_DIGIT_OF_NUMBER)
+    end
+    
     #date undecided ticket sum
     if targetProjects.nil?
       userinfo.date_undecided_hour = Issue.where(:assigned_to_id => userinfo.id, :due_date => nil, :start_date => nil).sum(:estimated_hours).to_f

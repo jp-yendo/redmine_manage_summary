@@ -29,11 +29,25 @@ class DayInfo
   end
 
   def self.calcProvisionalStartDate(end_date, total_hour, day_hour)
-    return end_date
+    result = end_date
+    while total_hour > day_hour
+      if DayInfo.isHoliday(result) == false
+        total_hour -= day_hour
+      end
+      result -= 1
+    end
+    return result
   end
 
   def self.calcProvisionalEndDate(start_date, total_hour, day_hour)
-    return start_date
+    result = start_date
+    while total_hour > day_hour
+      if DayInfo.isHoliday(result) == false
+        total_hour -= day_hour
+      end
+      result += 1
+    end
+    return result
   end
   
 private
