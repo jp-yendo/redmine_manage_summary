@@ -1,9 +1,13 @@
-# To change this license header, choose License Headers in Project Properties.
-# To change this template file, choose Tools | Templates
-# and open the template in the editor.
+class ProgressSummaryController < ApplicationController
 
-class ProgressSummaryController
-  def initialize
-    
+  def index
+    @filters_message = ""
+
+    render "show"
+  end
+
+  def show
+    @filters_message = ""
+
   end
 end

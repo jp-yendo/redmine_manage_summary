@@ -1,9 +1,14 @@
 ja:
-  project_module_manage_summary: "管理サマリ"
-  permission_view_manage_summary: "管理サマリ表示（全体）"
-  permission_view_manage_project_summary: "管理サマリ表示（プロジェクト）"
+  project_module_time_manage_summary: "時間サマリ"
+  permission_view_time_manage_summary: "時間サマリ表示（全体）"
+  permission_view_time_manage_project_summary: "時間サマリ表示（プロジェクト）"
+
+  project_module_progress_manage_summary: "進捗サマリ"
+  permission_view_progress_manage_summary: "進捗サマリ表示（全体）"
+  permission_view_progress_manage_project_summary: "進捗サマリ表示（プロジェクト）"
 
   menu_label_time_manage_summary: "時間サマリ"
+  menu_label_progress_manage_summary: "進捗サマリ"
 
   managesummary_show_filters: "条件"
   managesummary_target_date: "対象日"
@@ -13,8 +18,12 @@ ja:
   managesummary_user_unallocated: "未割当"
   managesummary_date_undecided: "日未定"
 
-  managesummary_settings_hours: "判定時間設定"
+  managesummary_settings_hours: "時間設定"
+  managesummary_settings_threshold_normalload: "１日の標準労働時間"
   managesummary_settings_threshold_lowtime: "最小労働時間"
-  managesummary_settings_threshold_normalload: "標準労働時間"
   managesummary_settings_threshold_overtime: "超過労働時間"
   managesummary_settings_threshold_hardtime: "過酷労働時間"
+  managesummary_settings_progress: "進捗設定"
+  managesummary_settings_threshold_progress_good: "進捗が良いと判断する日数"
+  managesummary_settings_threshold_progress_bad: "進捗が悪いと判断する日数"
+  managesummary_settings_threshold_progress_very_bad: "進捗が非常に悪いと判断する日数"

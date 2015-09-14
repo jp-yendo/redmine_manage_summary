@@ -1,16 +1,16 @@
 <h2><%=  l(:managesummary_settings_hours) %></h2>
 <p>
-  <label><%= l(:managesummary_settings_threshold_lowtime) %></label>
-  <input type="text"
-         name="settings[threshold_lowtime]"
-         value="<%= settings['threshold_lowtime'] %>"
-  >
-</p>
-<p>
   <label><%= l(:managesummary_settings_threshold_normalload) %></label>
   <input type="text"
          name="settings[threshold_normalload]"
          value="<%= settings['threshold_normalload'] %>"
+  >
+</p>
+<p>
+  <label><%= l(:managesummary_settings_threshold_lowtime) %></label>
+  <input type="text"
+         name="settings[threshold_lowtime]"
+         value="<%= settings['threshold_lowtime'] %>"
   >
 </p>
 <p>
@@ -25,5 +25,28 @@
   <input type="text"
          name="settings[threshold_hardtime]"
          value="<%= settings['threshold_hardtime'] %>"
+  >
+</p>
+<br />
+<h2><%=  l(:managesummary_settings_progress) %></h2>
+<p>
+  <label><%= l(:managesummary_settings_threshold_progress_good) %></label>
+  <input type="text"
+         name="settings[threshold_progress_good]"
+         value="<%= settings['threshold_progress_good'] %>"
+  >
+</p>
+<p>
+  <label><%= l(:managesummary_settings_threshold_progress_bad) %></label>
+  <input type="text"
+         name="settings[threshold_progress_bad]"
+         value="<%= settings['threshold_progress_bad'] %>"
+  >
+</p>
+<p>
+  <label><%= l(:managesummary_settings_threshold_progress_very_bad) %></label>
+  <input type="text"
+         name="settings[threshold_progress_very_bad]"
+         value="<%= settings['threshold_progress_very_bad'] %>"
   >
 </p>

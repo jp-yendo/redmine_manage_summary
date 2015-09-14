@@ -1,9 +1,14 @@
 en:
-  project_module_manage_summary: "Manage Summary"
-  permission_view_manage_summary: "View manage summary(all)"
-  permission_view_manage_project_summary: "View manage summary(project)"
+  project_module_time_manage_summary: "Time Summary"
+  permission_view_time_manage_summary: "View time summary (all)"
+  permission_view_time_manage_project_summary: "View time summary (project)"
+
+  project_module_progress_manage_summary: "Progress Summary"
+  permission_view_progress_manage_summary: "View progress summary (all)"
+  permission_view_progress_manage_project_summary: "View progress summary (project)"
 
   menu_label_time_manage_summary: "Time Summary"
+  menu_label_progress_manage_summary: "Progress Summary"
 
   managesummary_show_filters: "Filters"
   managesummary_target_date: "Target date"
@@ -13,8 +18,12 @@ en:
   managesummary_user_unallocated: "unallocated"
   managesummary_date_undecided: "????"
 
-  managesummary_settings_hours: "Threshold time Settings"
+  managesummary_settings_hours: "Time setting"
+  managesummary_settings_threshold_normalload: "Working hours of the day"
   managesummary_settings_threshold_lowtime: "Threshold low load"
-  managesummary_settings_threshold_normalload: "Threshold normal load"
   managesummary_settings_threshold_overtime: "Threshold over load"
   managesummary_settings_threshold_hardtime: "Threshold hard load"
+  managesummary_settings_progress: "Progress setting"
+  managesummary_settings_threshold_progress_good: "Number of days that progress is determined to good"
+  managesummary_settings_threshold_progress_bad: "Number of days that progress is determined to bad"
+  managesummary_settings_threshold_progress_very_bad: "Number of days that progress is determined to very bad"
