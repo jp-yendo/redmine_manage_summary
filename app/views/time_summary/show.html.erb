@@ -1,0 +1,7 @@
+<%=javascript_include_tag "time_summary", :plugin=>'redmine_manage_summary' %>
+<%=stylesheet_link_tag 'time_summary', :plugin => 'redmine_manage_summary' %>
+
+<div>
+  <%= render :partial => 'filters' %>
+  <%= render :partial => 'result_user_entry' %>
+</div>
