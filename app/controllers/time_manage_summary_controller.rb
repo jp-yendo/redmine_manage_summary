@@ -164,6 +164,11 @@ private
 
     #add issue hour
     calcIssue.each do |issue|
+      if issue.children.count > 0
+        #parent issue skip
+        next
+      end
+      
       isHolidayWork = false
       day_hour = nil
       if !issue.start_date.nil? && !issue.due_date.nil?
