@@ -1,8 +1,6 @@
 class ProgressSummaryController < ApplicationController
   unloadable
 
-  DEFINE_DIGIT_OF_NUMBER = 2
-
   def index
     @filters_message = ""
     initProgressSummary

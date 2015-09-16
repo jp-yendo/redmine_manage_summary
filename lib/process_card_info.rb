@@ -100,15 +100,10 @@ private
       card_info.count_closed_ticket = 0
     end
     card_info.percent_progress = ticket.done_ratio
-    if ticket.status.is_closed == true || (ticket.start_date.nil? && ticket.due_date.nil?)
-      card_info.days_early = 0
-      card_info.days_delay = 0
-    else
-      #Calc
-      days_early, days_delay = ProcessCardInfo.getTicketProgress(ticket)
-      card_info.days_early = days_early
-      card_info.days_delay = days_delay
-    end
+    #Calc
+    days_early, days_delay = ProcessCardInfo.getTicketProgress(ticket)
+    card_info.days_early = days_early
+    card_info.days_delay = days_delay
 
     return card_info
   end
@@ -117,7 +112,7 @@ private
     days_early = 0
     days_delay = 0
 
-    if ticket.status.is_closed == true || (ticket.start_date.nil? && ticket.due_date.nil?)
+    if ticket.status.is_closed == true || ticket.done_ratio == 100 || (ticket.start_date.nil? && ticket.due_date.nil?)
       days_early = 0
       days_delay = 0
     else
