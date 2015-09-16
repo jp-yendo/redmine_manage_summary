@@ -41,7 +41,8 @@ private
     card_info.title = project.name
     card_info.link = {:controller => 'progress_summary', :action => @action, :project_id => project.identifier}
 
-    issues = Issue.where(:project_id => project.id)
+    projectIds = ProjectInfo.getProjectIds(project.id)
+    issues = Issue.where(:project_id => projectIds)
     ProgressCardInfo.setIssuesProgress(card_info, issues)
     
     return card_info
