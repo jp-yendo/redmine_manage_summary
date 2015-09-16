@@ -18,6 +18,7 @@ ja:
   managesummary_user_unallocated: "未割当"
   managesummary_date_undecided: "日未定"
 
+  managesummary_card_cap_issue: "チケット"
   managesummary_card_msg_days_delay: "%{days} 日遅れ"
   managesummary_card_msg_days_early: "%{days} 日早い"
 

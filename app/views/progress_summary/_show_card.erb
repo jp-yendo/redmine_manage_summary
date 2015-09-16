@@ -16,7 +16,7 @@
     </div>
 
     <div class="card-detail">
-      <%= cardinfo.count_closed_ticket %>&nbsp;/&nbsp;<%= cardinfo.count_total_ticket %>&nbsp;(<%= cardinfo.percent_progress %>&percnt;)
+      <%= l(:managesummary_card_cap_issue) %>&nbsp;<%= cardinfo.count_closed_ticket %>&nbsp;/&nbsp;<%= cardinfo.count_total_ticket %>&nbsp;(<%= cardinfo.percent_progress %>&percnt;)
       <br />
 
       <% if cardinfo.days_delay > 0.0 %>

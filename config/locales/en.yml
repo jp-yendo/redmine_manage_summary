@@ -18,6 +18,7 @@ en:
   managesummary_user_unallocated: "unallocated"
   managesummary_date_undecided: "????"
 
+  managesummary_card_cap_issue: "Issue"
   managesummary_card_msg_days_delay: "%{days} days delay"
   managesummary_card_msg_days_early: "%{days} days early"
 
