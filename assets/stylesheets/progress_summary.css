@@ -1,0 +1,62 @@
+.controller-progress_summary .wrapper {
+    margin-top: 20px;
+    overflow-x: no-content;
+}
+
+.controller-progress_summary .card {
+    border-color: black;
+    border-style: solid;
+    border-top-width: 1px;
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    margin-left: 3px;
+    margin-top: 3px;
+    margin-right: 1px;
+    margin-bottom: 1px;
+    width: 150px;
+    height: 100px;
+    display: inline-block;
+}
+
+.controller-progress_summary .card-normal {
+    background-color: lightyellow;
+}
+.controller-progress_summary .card-good {
+    background-color: lightcyan;
+}
+.controller-progress_summary .card-bad {
+    background-color: lightsalmon;
+}
+.controller-progress_summary .card-very-bad {
+    background-color: lightcoral;
+}
+
+.controller-progress_summary .card-head-project {
+    background-color: lightskyblue;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+.controller-progress_summary .card-head-version {
+    background-color: lightgreen;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+.controller-progress_summary .card-head-ticket {
+    background-color: lightgray;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+.controller-progress_summary .card-detail {
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}

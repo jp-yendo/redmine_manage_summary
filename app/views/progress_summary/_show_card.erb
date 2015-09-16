@@ -1,0 +1,33 @@
+<% cssname = "card-normal" %>
+<% if cardinfo.days_delay >= Setting.plugin_redmine_manage_summary['threshold_progress_very_bad'].to_f %>
+  <% cssname = "card-very-bad" %>
+<% elsif cardinfo.days_delay >= Setting.plugin_redmine_manage_summary['threshold_progress_bad'].to_f %>
+  <% cssname = "card-bad" %>
+<% elsif cardinfo.days_early >= Setting.plugin_redmine_manage_summary['threshold_progress_good'].to_f %>
+  <% cssname = "card-good" %>
+<% end %>
+<span class="card <%= cssname%>">
+    <div class="card-head-<%= cardinfo.type%>">
+      <% if cardinfo.link.nil? %>
+        <%= cardinfo.title %>
+      <% else %>
+        <%= link_to cardinfo.title, cardinfo.link %>
+      <% end %>
+    </div>
+
+    <div class="card-detail">
+      <%= cardinfo.count_closed_ticket %>&nbsp;/&nbsp;<%= cardinfo.count_total_ticket %>&nbsp;(<%= cardinfo.percent_progress %>&percnt;)
+      <br />
+
+      <% if cardinfo.days_delay > 0.0 %>
+        <%= l(:managesummary_card_msg_days_delay, :days => cardinfo.days_delay) %>
+      <% elsif cardinfo.days_early > 0.0 %>
+        <%= l(:managesummary_card_msg_days_early, :days => cardinfo.days_early) %>
+      <% end %>
+      <br />
+
+      <% if !cardinfo.comment.nil? %>
+        <%= cardinfo.comment %>
+      <% end %>
+    </div>
+</span>

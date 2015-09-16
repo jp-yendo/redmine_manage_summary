@@ -1,6 +1,9 @@
 <%=javascript_include_tag "progress_summary", :plugin=>'redmine_manage_summary' %>
 <%=stylesheet_link_tag 'progress_summary', :plugin => 'redmine_manage_summary' %>
-
-<div>
-  hello world
+<% if !@card_info_list.nil? %>
+<div class="wrapper">
+  <% @card_info_list.each do |cardinfo| %>
+    <%= render :partial => 'show_card', :locals => {:cardinfo => cardinfo} %>
+  <% end %>
 </div>
+<% end %>

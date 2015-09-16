@@ -18,6 +18,9 @@ en:
   managesummary_user_unallocated: "unallocated"
   managesummary_date_undecided: "????"
 
+  managesummary_card_msg_days_delay: "%{days} days delay"
+  managesummary_card_msg_days_early: "%{days} days early"
+
   managesummary_settings_hours: "Time setting"
   managesummary_settings_threshold_normalload: "Working hours of the day"
   managesummary_settings_threshold_lowtime: "Threshold low load"
