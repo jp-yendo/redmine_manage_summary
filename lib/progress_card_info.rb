@@ -138,8 +138,10 @@ private
       end
 
       working_days = DayInfo.getWorkdays(start_date, end_date)
-Rails.logger.info("--------------")
-Rails.logger.info("working_days : " + working_days.to_s)
+      if working_days < 1
+        working_days = (end_date - start_date) + 1
+      end
+
       today = Date.today
       if end_date < today
         actual_progress = 100
@@ -164,12 +166,6 @@ Rails.logger.info("working_days : " + working_days.to_s)
       end
     end
 
-Rails.logger.info("working_days : " + working_days.to_s)
-Rails.logger.info("actual_progress : " + actual_progress.to_s)
-Rails.logger.info("days_early : " + days_early.to_s)
-Rails.logger.info("days_delay : " + days_delay.to_s)
-Rails.logger.info("--------------")
-    
     return actual_progress, days_early, days_delay
   end
   
