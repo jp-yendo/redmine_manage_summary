@@ -4,16 +4,18 @@ class ProgressCardInfo
   attr_accessor :link
   attr_accessor :project
   attr_accessor :version
-  attr_accessor :ticket
+  attr_accessor :issue
   attr_accessor :comment
-  attr_accessor :count_total_ticket
-  attr_accessor :count_closed_ticket
+  attr_accessor :count_total_issue
+  attr_accessor :count_closed_issue
   attr_accessor :percent_progress
   attr_accessor :percent_actual_progress
-  attr_accessor :days_early
-  attr_accessor :days_delay
+  attr_accessor :days_total_early
+  attr_accessor :days_max_early
+  attr_accessor :days_total_delay
+  attr_accessor :days_max_delay
 
-  def self.getCardInfoList(project = nil, version = nil)
+  def self.getCardInfoList(project = nil, version = nil, issue = nil)
     result = []
 
     if project.nil?
@@ -23,10 +25,14 @@ class ProgressCardInfo
         targetindex += 1
       end
     else
-      if version.nil?
-        ProgressCardInfo.setCardInfoProjectChild(project, result)
+      if !issue.nil?
+        ProgressCardInfo.setCardInfoIssueChild(project, nil, issue, result)
       else
-        ProgressCardInfo.setCardInfoVersionChild(project, version, result)
+        if version.nil?
+          ProgressCardInfo.setCardInfoProjectChild(project, result)
+        else
+          ProgressCardInfo.setCardInfoVersionChild(project, version, result)
+        end
       end
     end
 
@@ -54,7 +60,7 @@ private
     card_info.version = version
     card_info.type = "version"
     card_info.title = version.name
-    card_info.link = {:controller => 'progress_summary', :action => @action, :project_id => project.identifier, :version => version.id}
+    card_info.link = {:controller => 'progress_summary', :action => @action, :project_id => project.identifier, :version_id => version.id}
 
     issues = Issue.where(:project_id => project.id, :fixed_version_id => version.id)
     ProgressCardInfo.setIssuesProgress(card_info, issues)
@@ -62,27 +68,37 @@ private
     return card_info
   end
 
-  def self.getCardInfoTicket(project, version, ticket)
+  def self.getCardInfoIssue(project, version, issue)
     card_info = ProgressCardInfo::new
     card_info.project = project
     card_info.version = version
-    card_info.ticket = ticket
-    card_info.type = "ticket"
-    card_info.title = ticket.subject + "(#" + ticket.id.to_s + ")"
-    card_info.link = {:controller => 'issues', :action => 'show', :id => ticket.id}
+    card_info.issue = issue
+    card_info.type = "issue"
+    card_info.title = issue.subject + "(#" + issue.id.to_s + ")"
+    if issue.children.count > 0
+      if version.nil?
+        card_info.link = {:controller => 'progress_summary', :action => @action, :project_id => project.identifier, :parent_issue_id => issue.id}
+      else
+        card_info.link = {:controller => 'progress_summary', :action => @action, :project_id => project.identifier, :version_id => version.id, :parent_issue_id => issue.id}
+      end
+    else
+      card_info.link = {:controller => 'issues', :action => 'show', :id => issue.id}
+    end
 
-    ProgressCardInfo.setIssuesProgress(card_info, [ticket])
+    ProgressCardInfo.setIssuesProgress(card_info, [issue])
 
     return card_info
   end
 
   def self.setIssuesProgress(card_info, issues)
-    card_info.count_total_ticket = 0
-    card_info.count_closed_ticket = 0
+    card_info.count_total_issue = 0
+    card_info.count_closed_issue = 0
     card_info.percent_progress = 0
     card_info.percent_actual_progress = 0
-    card_info.days_early = 0
-    card_info.days_delay = 0
+    card_info.days_total_early = 0
+    card_info.days_max_early = 0
+    card_info.days_total_delay = 0
+    card_info.days_max_delay = 0
 
     total_count = 0
     total_progress = 0
@@ -93,15 +109,23 @@ private
         next
       end
 
-      card_info.count_total_ticket += 1
+      card_info.count_total_issue += 1
       if issue.status.is_closed == true
-        card_info.count_closed_ticket += 1
+        card_info.count_closed_issue += 1
       end
       
-      actual_progress, days_early, days_delay = ProgressCardInfo.getTicketProgress(issue)
+      actual_progress, days_early, days_delay = ProgressCardInfo.getIssueProgress(issue)
 
-      card_info.days_early += days_early
-      card_info.days_delay += days_delay
+      card_info.days_total_early += days_early
+      card_info.days_total_delay += days_delay
+
+      if card_info.days_max_early < days_early
+        card_info.days_max_early = days_early
+      end
+      if card_info.days_max_delay < days_delay
+        card_info.days_max_delay = days_delay
+      end
+      
       total_progress += issue.done_ratio
       total_actual_progress += actual_progress
 
@@ -114,28 +138,28 @@ private
     end
   end
   
-  def self.getTicketProgress(ticket)
-    if ticket.status.is_closed == true || ticket.done_ratio == 100 || (ticket.start_date.nil? && ticket.due_date.nil?)
+  def self.getIssueProgress(issue)
+    if issue.status.is_closed == true || issue.done_ratio == 100 || (issue.start_date.nil? && issue.due_date.nil?)
       days_early = 0
       days_delay = 0
       actual_progress = 100
     else
       #Calc
       default_hour = Setting.plugin_redmine_manage_summary['threshold_normalload'].to_f
-      if ticket.estimated_hours.nil?
+      if issue.estimated_hours.nil?
         total_hour = 0
       else
-        total_hour = ticket.estimated_hours
+        total_hour = issue.estimated_hours
       end
-      if ticket.start_date.nil?
-        start_date = DayInfo.calcProvisionalStartDate(ticket.due_date, total_hour, default_hour)
+      if issue.start_date.nil?
+        start_date = DayInfo.calcProvisionalStartDate(issue.due_date, total_hour, default_hour)
       else        
-        start_date = ticket.start_date
+        start_date = issue.start_date
       end
-      if ticket.due_date.nil?
-        end_date = DayInfo.calcProvisionalEndDate(ticket.start_date, total_hour, default_hour)
+      if issue.due_date.nil?
+        end_date = DayInfo.calcProvisionalEndDate(issue.start_date, total_hour, default_hour)
       else        
-        end_date = ticket.due_date
+        end_date = issue.due_date
       end
 
       working_days = DayInfo.getWorkdays(start_date, end_date)
@@ -153,13 +177,13 @@ private
         actual_progress = temp_working_days * 100 / working_days
       end
 
-      if ticket.done_ratio > actual_progress
-        days_early = working_days * (ticket.done_ratio - actual_progress) / 100
+      if issue.done_ratio > actual_progress
+        days_early = working_days * (issue.done_ratio - actual_progress) / 100
         days_early = days_early.floor
         days_delay = 0
-      elsif ticket.done_ratio < actual_progress
+      elsif issue.done_ratio < actual_progress
         days_early = 0
-        days_delay = working_days * (actual_progress - ticket.done_ratio) / 100
+        days_delay = working_days * (actual_progress - issue.done_ratio) / 100
         days_delay = days_delay.floor
       else
         days_early = 0
@@ -187,7 +211,7 @@ private
     end
 
     #Ticket
-    ProgressCardInfo.setCardInfoVersionChild(project, nil, cardinfolist)
+    ProgressCardInfo.setCardInfoIssueChild(project, nil, nil, cardinfolist)
   end
 
   def self.setCardInfoVersionChild(project, version, cardinfolist)
@@ -205,7 +229,28 @@ private
         next
       end
 
-      cardinfolist[targetindex] = ProgressCardInfo.getCardInfoTicket(project, version, issue)
+      cardinfolist[targetindex] = ProgressCardInfo.getCardInfoIssue(project, version, issue)
+      targetindex += 1
+    end
+  end
+
+  def self.setCardInfoIssueChild(project, version, issue, cardinfolist)
+    targetindex = cardinfolist.count
+
+    #Get Param Id
+    version_id = nil
+    issue_id = nil
+    if !version.nil?
+      version_id = version.id
+    end
+    if !issue.nil?
+      issue_id = issue.id
+    end
+    
+    #Ticket
+    issues = Issue.where(:project_id => project.id, :fixed_version_id => version_id, :parent_id => issue_id)
+    issues.each do |issue|
+      cardinfolist[targetindex] = ProgressCardInfo.getCardInfoIssue(project, version, issue)
       targetindex += 1
     end
   end

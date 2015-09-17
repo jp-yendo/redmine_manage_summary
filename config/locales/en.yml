@@ -19,8 +19,10 @@ en:
   managesummary_date_undecided: "????"
 
   managesummary_card_cap_issue: "Issue"
-  managesummary_card_msg_days_delay: "%{days} days delay"
-  managesummary_card_msg_days_early: "%{days} days early"
+  managesummary_card_msg_days_total_delay: "Total delay %{days} days"
+  managesummary_card_msg_days_max_delay: "Max delay %{days} days"
+  managesummary_card_msg_days_total_early: "Total early %{days} days"
+  managesummary_card_msg_days_max_early: "Max early %{days} days"
 
   managesummary_settings_hours: "Time setting"
   managesummary_settings_threshold_normalload: "Working hours of the day"

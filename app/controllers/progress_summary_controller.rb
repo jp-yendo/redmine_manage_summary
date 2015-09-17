@@ -6,7 +6,7 @@ class ProgressSummaryController < ApplicationController
   def index
     @filters_message = ""
     initProgressSummary
-    @card_info_list = getCardInfoList("index", @target_project, @target_version)
+    @card_info_list = getCardInfoList("index", @target_project, @target_version, @target_issue)
     render "show"
   end
 
@@ -15,9 +15,9 @@ class ProgressSummaryController < ApplicationController
     initProgressSummary
     find_project
     if @target_project.nil?
-      @card_info_list = getCardInfoList("show", @project, nil)
+      @card_info_list = getCardInfoList("show", @project, nil, @target_issue)
     else
-      @card_info_list = getCardInfoList("show", @target_project, @target_version)
+      @card_info_list = getCardInfoList("show", @target_project, @target_version, @target_issue)
     end
   end
 
@@ -30,7 +30,8 @@ private
 
   def initProgressSummary
     projectid = params[:project_id]
-    versionid = params[:version]
+    versionid = params[:version_id]
+    issueid = params[:parent_issue_id]
 
     if !projectid.nil?
       @target_project = Project.find(projectid)
@@ -41,15 +42,23 @@ private
     else
       @target_version = nil
     end
+
+    if !issueid.nil?
+      @target_issue = Issue.find(issueid)
+    else
+      @target_issue = nil
+    end
   end
   
-  def getCardInfoList(action, project = nil, version = nil)
+  def getCardInfoList(action, project = nil, version = nil, issue = nil)
     @action = action
-    card_info_list = ProgressCardInfo.getCardInfoList(project, version)
+    card_info_list = ProgressCardInfo.getCardInfoList(project, version, issue)
     card_info_list.each do |card_info|
         card_info.percent_progress = card_info.percent_progress.round(DEFINE_DIGIT_OF_NUMBER)
-        card_info.days_early = card_info.days_early.round(DEFINE_DIGIT_OF_NUMBER)
-        card_info.days_delay = card_info.days_delay.round(DEFINE_DIGIT_OF_NUMBER)
+        card_info.days_total_early = card_info.days_total_early.round(DEFINE_DIGIT_OF_NUMBER)
+        card_info.days_max_early = card_info.days_max_early.round(DEFINE_DIGIT_OF_NUMBER)
+        card_info.days_total_delay = card_info.days_total_delay.round(DEFINE_DIGIT_OF_NUMBER)
+        card_info.days_max_delay = card_info.days_max_delay.round(DEFINE_DIGIT_OF_NUMBER)
     end
     return card_info_list
   end

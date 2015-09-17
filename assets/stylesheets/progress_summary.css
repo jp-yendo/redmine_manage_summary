@@ -16,7 +16,7 @@
     margin-bottom: 1px;
     width: 150px;
     height: 100px;
-    display: inline-block;
+    display: inline-table;
 }
 
 .controller-progress_summary .card-normal {
@@ -46,12 +46,23 @@
     padding-top: 3px;
     padding-bottom: 3px;
 }
-.controller-progress_summary .card-head-ticket {
+.controller-progress_summary .card-head-issue {
     background-color: lightgray;
     padding-left: 5px;
     padding-right: 5px;
     padding-top: 3px;
     padding-bottom: 3px;
+}
+
+.controller-progress_summary .card-progress {
+    padding-left: 2px;
+    padding-right: 2px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
 }
 
 .controller-progress_summary .card-detail {

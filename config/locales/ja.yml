@@ -19,8 +19,10 @@ ja:
   managesummary_date_undecided: "日未定"
 
   managesummary_card_cap_issue: "チケット"
-  managesummary_card_msg_days_delay: "%{days} 日遅れ"
-  managesummary_card_msg_days_early: "%{days} 日早い"
+  managesummary_card_msg_days_total_delay: "合計 %{days} 日遅れ"
+  managesummary_card_msg_days_max_delay: "最大 %{days} 日遅れ"
+  managesummary_card_msg_days_total_early: "合計 %{days} 日早い"
+  managesummary_card_msg_days_max_early: "最大 %{days} 日早い"
 
   managesummary_settings_hours: "時間設定"
   managesummary_settings_threshold_normalload: "１日の標準労働時間"
