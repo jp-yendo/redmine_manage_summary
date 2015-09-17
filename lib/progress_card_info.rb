@@ -26,7 +26,7 @@ class ProgressCardInfo
       end
     else
       if !issue.nil?
-        ProgressCardInfo.setCardInfoIssueChild(project, nil, issue, result)
+        ProgressCardInfo.setCardInfoIssueChild(project, version, issue, result)
       else
         if version.nil?
           ProgressCardInfo.setCardInfoProjectChild(project, result)
@@ -100,6 +100,9 @@ private
     card_info.days_total_delay = 0
     card_info.days_max_delay = 0
 
+    #TODO:再帰呼出しでの分類対応
+    #　　　子がある場合は自分を無視して子供のみ集計する
+    
     total_count = 0
     total_progress = 0
     total_actual_progress = 0
@@ -236,19 +239,15 @@ private
 
   def self.setCardInfoIssueChild(project, version, issue, cardinfolist)
     targetindex = cardinfolist.count
-
-    #Get Param Id
-    version_id = nil
-    issue_id = nil
-    if !version.nil?
-      version_id = version.id
-    end
-    if !issue.nil?
-      issue_id = issue.id
-    end
     
     #Ticket
-    issues = Issue.where(:project_id => project.id, :fixed_version_id => version_id, :parent_id => issue_id)
+    if version.nil? && issue.nil?
+      issues = Issue.where(:project_id => project.id, :fixed_version_id => nil, :parent_id => nil)
+    elsif !issue.nil?
+      issues = Issue.where(:project_id => project.id, :parent_id => issue.id)
+    elsif !version.nil?
+      issues = Issue.where(:project_id => project.id, :fixed_version_id => version.id)
+    end
     issues.each do |issue|
       cardinfolist[targetindex] = ProgressCardInfo.getCardInfoIssue(project, version, issue)
       targetindex += 1
