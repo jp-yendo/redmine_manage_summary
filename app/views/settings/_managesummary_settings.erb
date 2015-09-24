@@ -1,4 +1,10 @@
 <h2><%=  l(:managesummary_settings_hours) %></h2>
+
+<p>
+  <label><%= l(:managesummary_settings_region) %></label>
+  <%= select_tag('settings[region]', options_for_select(Holidays.regions, @settings['region'])) %>
+</p>
+
 <p>
   <label><%= l(:managesummary_settings_threshold_normalload) %></label>
   <input type="text"

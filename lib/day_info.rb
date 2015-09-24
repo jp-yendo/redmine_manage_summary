@@ -61,7 +61,7 @@ private
     result = datecalc.non_working_week_days.include?(convert_wday[targetdate.wday])
 
     #日本の祝日と論理和
-    result = result | targetdate.holiday?(:jp) 
+    result = result | targetdate.holiday?(Setting.plugin_redmine_manage_summary['region']) 
 
     return result
   end

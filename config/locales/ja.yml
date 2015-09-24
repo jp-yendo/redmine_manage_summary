@@ -24,6 +24,7 @@ ja:
   managesummary_card_msg_days_total_early: "合計 %{days} 日早い"
   managesummary_card_msg_days_max_early: "最大 %{days} 日早い"
 
+  managesummary_settings_region: "リージョン"
   managesummary_settings_hours: "時間設定"
   managesummary_settings_threshold_normalload: "１日の標準労働時間"
   managesummary_settings_threshold_lowtime: "最小労働時間"

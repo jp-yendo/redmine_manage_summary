@@ -38,6 +38,7 @@ Redmine::Plugin.register :redmine_manage_summary do
   
   settings :partial => 'settings/managesummary_settings',
            :default => {
+              'region' => :jp,
               'threshold_lowtime'   => 0.1,
               'threshold_normalload'=> 7.6,
               'threshold_overtime'  => 9.6,

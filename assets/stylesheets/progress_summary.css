@@ -53,6 +53,13 @@
     padding-top: 3px;
     padding-bottom: 3px;
 }
+.controller-progress_summary .card-head-issue-category {
+    background-color: yellow;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
 
 .controller-progress_summary .card-progress {
     padding-left: 2px;
