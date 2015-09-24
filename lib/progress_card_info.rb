@@ -44,7 +44,7 @@ private
     card_info = ProgressCardInfo::new
     card_info.project = project
     card_info.type = "project"
-    card_info.link = {:controller => 'progress_summary', :action => @action, :project_id => project.identifier}
+    card_info.link = {:project_id => project.identifier}
     card_info.title = project.name
 
     projectIds = ProjectInfo.getProjectIds(project.id)
@@ -59,7 +59,7 @@ private
     card_info.project = project
     card_info.version = version
     card_info.type = "version"
-    card_info.link = {:controller => 'progress_summary', :action => @action, :project_id => project.identifier, :version_id => version.id}
+    card_info.link = {:project_id => project.identifier, :version_id => version.id}
     card_info.title = version.name
 
     issues = Issue.where(:project_id => project.id, :fixed_version_id => version.id)
@@ -75,10 +75,9 @@ private
     card_info.issue = issue
     if issue.children.count > 0
       card_info.type = "issue-category"
-      if version.nil?
-        card_info.link = {:controller => 'progress_summary', :action => @action, :project_id => project.identifier, :parent_issue_id => issue.id}
-      else
-        card_info.link = {:controller => 'progress_summary', :action => @action, :project_id => project.identifier, :version_id => version.id, :parent_issue_id => issue.id}
+      card_info.link = {:project_id => project.identifier, :parent_issue_id => issue.id}
+      if !version.nil?
+        card_info.link[:version_id] = version.id
       end
     else
       card_info.type = "issue"

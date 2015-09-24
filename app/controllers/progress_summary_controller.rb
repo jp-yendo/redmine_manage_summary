@@ -6,7 +6,7 @@ class ProgressSummaryController < ApplicationController
   def index
     @filters_message = ""
     initProgressSummary
-    @card_info_list = getCardInfoList("index", @target_project, @target_version, @target_issue)
+    @card_info_list = getCardInfoList(@target_project, @target_version, @target_issue)
     render "show"
   end
 
@@ -15,9 +15,9 @@ class ProgressSummaryController < ApplicationController
     initProgressSummary
     find_project
     if @target_project.nil?
-      @card_info_list = getCardInfoList("show", @project, nil, @target_issue)
+      @card_info_list = getCardInfoList(@project, nil, @target_issue)
     else
-      @card_info_list = getCardInfoList("show", @target_project, @target_version, @target_issue)
+      @card_info_list = getCardInfoList(@target_project, @target_version, @target_issue)
     end
   end
 
@@ -50,8 +50,7 @@ private
     end
   end
   
-  def getCardInfoList(action, project = nil, version = nil, issue = nil)
-    @action = action
+  def getCardInfoList(project = nil, version = nil, issue = nil)
     card_info_list = ProgressCardInfo.getCardInfoList(project, version, issue)
     card_info_list.each do |card_info|
         card_info.percent_progress = card_info.percent_progress.round(DEFINE_DIGIT_OF_NUMBER)

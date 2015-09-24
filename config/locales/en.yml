@@ -24,6 +24,7 @@ en:
   managesummary_card_msg_days_total_early: "Total early %{days} days"
   managesummary_card_msg_days_max_early: "Max early %{days} days"
 
+  managesummary_settings_common: "Common setting"
   managesummary_settings_region: "Region"
   managesummary_settings_hours: "Time setting"
   managesummary_settings_threshold_normalload: "Working hours of the day"
