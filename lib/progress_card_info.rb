@@ -20,7 +20,7 @@ class ProgressCardInfo
 
     if project.nil?
       targetindex = 0
-      Project.where(:parent_id => nil).order("name asc").each do |project|
+      Project.where(:parent_id => nil, :status => 1).order("name asc").each do |project|
         result[targetindex] = ProgressCardInfo.getCardInfoProject(project)
         targetindex += 1
       end
@@ -31,7 +31,7 @@ class ProgressCardInfo
         if version.nil?
           ProgressCardInfo.setCardInfoProjectChild(project, result)
         else
-          ProgressCardInfo.setCardInfoVersionChild(project, version, result)
+          ProgressCardInfo.setCardInfoIssueChild(project, version, nil, result)
         end
       end
     end
@@ -48,7 +48,7 @@ private
     card_info.title = project.name
 
     projectIds = ProjectInfo.getProjectIds(project.id)
-    issues = Issue.where(:project_id => projectIds)
+    issues = Issue.where(:project_id => projectIds, :is_private => 0)
     ProgressCardInfo.setIssuesProgress(card_info, issues)
     
     return card_info
@@ -62,7 +62,7 @@ private
     card_info.link = {:project_id => project.identifier, :version_id => version.id}
     card_info.title = version.name
 
-    issues = Issue.where(:project_id => project.id, :fixed_version_id => version.id)
+    issues = Issue.where(:project_id => project.id, :fixed_version_id => version.id, :is_private => 0)
     ProgressCardInfo.setIssuesProgress(card_info, issues)
     
     return card_info
@@ -254,14 +254,14 @@ private
     targetindex = cardinfolist.count
 
     #Sub Project
-    subprojects = Project.all.where(:parent_id => project.id).order("name asc")
+    subprojects = Project.all.where(:parent_id => project.id, :status => 1).order("name asc")
     subprojects.each do |subproject|
       cardinfolist[targetindex] = ProgressCardInfo.getCardInfoProject(subproject)
       targetindex += 1
     end
 
     #Version
-    versions = project.versions.sort {|x,y| x.name <=> y.name}
+    versions = project.versions.where(:status => ['open','locked']).sort {|x,y| x.name <=> y.name}
     versions.each do |version|
       cardinfolist[targetindex] = ProgressCardInfo.getCardInfoVersion(project, version)
       targetindex += 1
@@ -271,36 +271,18 @@ private
     ProgressCardInfo.setCardInfoIssueChild(project, nil, nil, cardinfolist)
   end
 
-  def self.setCardInfoVersionChild(project, version, cardinfolist)
-    targetindex = cardinfolist.count
-
-    #Ticket
-    if version.nil?
-      issues = Issue.where(:project_id => project.id, :fixed_version_id => nil)
-    else
-      issues = Issue.where(:project_id => project.id, :fixed_version_id => version.id)
-    end
-    issues.each do |issue|
-      if issue.children.count > 0
-        #parent issue skip
-        next
-      end
-
-      cardinfolist[targetindex] = ProgressCardInfo.getCardInfoIssue(project, version, issue)
-      targetindex += 1
-    end
-  end
-
   def self.setCardInfoIssueChild(project, version, issue, cardinfolist)
     targetindex = cardinfolist.count
     
     #Ticket
     if version.nil? && issue.nil?
-      issues = Issue.where(:project_id => project.id, :fixed_version_id => nil, :parent_id => nil)
+      issues = Issue.where(:project_id => project.id, :parent_id => nil, :is_private => 0)
+    elsif !version.nil? && !issue.nil?
+      issues = Issue.where(:project_id => project.id, :fixed_version_id => version.id, :parent_id => issue.id, :is_private => 0)
     elsif !issue.nil?
-      issues = Issue.where(:project_id => project.id, :parent_id => issue.id)
+      issues = Issue.where(:project_id => project.id, :parent_id => issue.id, :is_private => 0)
     elsif !version.nil?
-      issues = Issue.where(:project_id => project.id, :fixed_version_id => version.id)
+      issues = Issue.where(:project_id => project.id, :fixed_version_id => version.id, :is_private => 0)
     end
     issues.each do |issue|
       cardinfolist[targetindex] = ProgressCardInfo.getCardInfoIssue(project, version, issue)
