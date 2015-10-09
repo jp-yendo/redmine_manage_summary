@@ -48,7 +48,7 @@ private
     card_info.title = project.name
 
     projectIds = ProjectInfo.getProjectIds(project.id)
-    issues = Issue.where(:project_id => projectIds, :is_private => 0)
+    issues = Issue.where(:project_id => projectIds, :parent => nil, :is_private => 0)
     ProgressCardInfo.setIssuesProgress(card_info, issues)
     
     return card_info
@@ -63,6 +63,11 @@ private
     card_info.title = version.name
 
     issues = Issue.where(:project_id => project.id, :fixed_version_id => version.id, :is_private => 0)
+    issues.each do |issue|
+      if !issue.parent.nil? && !issue.parent.fixed_version_id.nil? && issue.parent.fixed_version_id == version.id
+        issues.delete(issue)
+      end
+    end
     ProgressCardInfo.setIssuesProgress(card_info, issues)
     
     return card_info
