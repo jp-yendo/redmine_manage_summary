@@ -1,3 +1,0 @@
-= redmine_manage_summary
-
-Description goes here
