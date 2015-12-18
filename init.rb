@@ -4,7 +4,7 @@ Redmine::Plugin.register :redmine_manage_summary do
   name 'Redmine Manage Summary plugin'
   author 'Yuichiro Endo'
   description 'Redmine Manage Summary plugin'
-  version '0.1.0'
+  version '0.1.1'
   url 'https://github.com/jp-yendo/redmine_manage_summary.git'
   author_url 'https://github.com/jp-yendo'
 
