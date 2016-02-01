@@ -1,6 +1,8 @@
 class ProgressSummaryController < ApplicationController
   unloadable
 
+  helper ProgressSummaryHelper
+
   DEFINE_DIGIT_OF_NUMBER = 2
   
   def index

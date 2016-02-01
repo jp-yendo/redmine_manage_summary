@@ -15,7 +15,7 @@
       <% end %>
     </div>
     <div class="card-progress">
-      <%= progress_bar([cardinfo.percent_progress, cardinfo.percent_progress], :width => '100%') %>
+      <%= progress_bar_width([cardinfo.percent_progress, cardinfo.percent_progress], :width => '100%') %>
     </div>
     <div class="card-detail">
       <%= l(:managesummary_card_cap_issue) %>&nbsp;<%= cardinfo.count_closed_issue %>&nbsp;/&nbsp;<%= cardinfo.count_total_issue %>&nbsp;(<%= cardinfo.percent_progress %>)&percnt;
